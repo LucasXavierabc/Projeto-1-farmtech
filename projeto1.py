@@ -1,59 +1,14 @@
+from time import sleep
 plantacoes = []
 
 
-def calcular_area(cultura):
-    if cultura == "laranja":
-        raio = float(input("Digite o raio do pomar (m): "))
-        area = round(3.14 * (raio ** 2), 3)  # Área do círculo
-        print(f"Área = {area} m²")
-        return area
-    elif cultura == "milho":
-        largura = float(input("Digite a largura do terreno (m): "))
-        comprimento = float(input("Digite o comprimento do terreno (m): "))
-        area = largura * comprimento  # Área do retângulo
-        print(f"Área = {area} m²")
-        return area
-    else:
-        print("Cultura inválida!")
-        return 0
 
 
-def cadastrar_plantacao():
-    nome = input("Digite o nome da plantação: ")
-    while True:
-        cultura = input("Digite a cultura (laranja/milho): ").lower()
-        if cultura == "laranja" or cultura == "milho":
-            area = calcular_area(cultura)
-            break
-        else:
-            print("\n ! Cultura inválida ! \n")
-    sementes_mudas, agua, nitrogenio, fosforo, potassio = '', '', '', '', ''
-    plantacoes.append({"nome": nome, "cultura": cultura, "area": area,
-                       "sementes/mudas": sementes_mudas, "agua": agua,
-                       "nitrogenio": nitrogenio, "fosforo": fosforo, "potassio": potassio})
-    print("Plantação cadastrada com sucesso!")
 
+######################### Outras funções 
 
-def exibir_plantacoes():
-    if not plantacoes:
-        print("Nenhuma plantação cadastrada.")
-    else:
-        print("\n ---> Plantações: ")
-        for i, plantacao in enumerate(plantacoes):
-            print(
-                f"{i} - Nome: {plantacao['nome'].capitalize()} || Cultura: {plantacao['cultura'].capitalize()} || Área: {plantacao['area']} m²")
-
-
-def atualizar_area():
-    exibir_plantacoes()
-    indice = int(input("Digite o índice da plantação que deseja atualizar: "))
-    if 0 <= indice < len(plantacoes):
-        nova_area = calcular_area(plantacoes[indice]["cultura"])
-        plantacoes[indice]["area"] = nova_area
-        print("Área atualizada com sucesso!")
-    else:
-        print("Índice inválido!")
-
+def limpar_tela():
+    print(""*100)
 
 def converter_peso(gramas):
     if gramas >= 1_000_000:
@@ -73,102 +28,176 @@ def converter_mudas(mudas):
         return f"{mudas:.2f} unidades"
 
 
-def calcular_insumos():
-    exibir_plantacoes()
-    indice = int(input("Digite o índice da plantação para calcular insumos: "))
-    if 0 <= indice < len(plantacoes):
-        cultura = plantacoes[indice]["cultura"]
-        area = plantacoes[indice]["area"]
-        ########## Dados coletados do site da EMBRAPA ##########
-        if cultura == "milho":
-            sementes = 2.3 * area  # Média de 2.3g por m²
-            plantacoes[indice]["sementes/mudas"] = sementes
 
-            agua = 5 * area  # Aproximadamente 5 litros por m²
-            plantacoes[indice]["agua"] = agua
 
-            nitrogenio = 10 * area  # Média de 10g de N por m²
-            plantacoes[indice]["nitrogenio"] = nitrogenio
 
-            fosforo = 5 * area  # Média de 5g de P por m²
-            plantacoes[indice]["fosforo"] = fosforo
+######################### 1 - cadastrar uma plantação 
 
-            potassio = 8 * area  # Média de 8g de K por m²
-            plantacoes[indice]["potassio"] = potassio
+def cadastrar_plantacao():
+    print("Digite o nome da plantação ")
+    nome = input("--> ")
+    while True:
+        print("Digite a cultura (laranja/milho) ")
+        cultura = input("--> ").lower()
+        if cultura == "laranja" or cultura == "milho":
+            area = calcular_area()
+            sementes_mudas, agua, nitrogenio, fosforo, potassio = calcular_insumos(cultura, area)
+            plantacoes.append({"nome": nome, "cultura": cultura, "area":area,
+                               "sementes_mudas":sementes_mudas, "agua":agua,
+                               "nitrogenio":nitrogenio, "fosforo":fosforo,
+                               "potassio":potassio})
+            sleep(1)
+            print("Plantação cadastrada com sucesso")
+            break
+        else:
+            print("! Cultura inválida !\n")
 
-        elif cultura == "laranja":
-            mudas = round(area / 30, 3)  # Média de uma muda a cada 30m²
-            plantacoes[indice]["sementes/mudas"] = mudas
+def calcular_area():
+    print("Digite a largura do terreno (m) ")
+    largura = float(input("--> "))
+    print("Digite o comprimento do terreno (m) ")
+    comprimento = float(input("--> "))
+    area = largura * comprimento 
+    print(f"Área = {area} m²")
+    return area
 
+def calcular_insumos(cultura, area):
+    match cultura:
+        case "laranja":
+            sementes_mudas = round(area / 30, 3)  # Média de uma muda a cada 30m²
             agua = 15 * area  # Aproximadamente 15 litros por m²
-            plantacoes[indice]["agua"] = agua
-
             nitrogenio = 8 * area  # Média de 8g de N por m²
-            plantacoes[indice]["nitrogenio"] = nitrogenio
-
             fosforo = 4 * area  # Média de 4g de P por m²
-            plantacoes[indice]["fosforo"] = fosforo
-
             potassio = 6 * area  # Média de 6g de K por m²
-            plantacoes[indice]["potassio"] = potassio
+        case "milho":
+            sementes_mudas = 2.3 * area  # Média de 2.3g por m²
+            agua = 5 * area  # Aproximadamente 5 litros por m²
+            nitrogenio = 10 * area  # Média de 10g de N por m²
+            fosforo = 5 * area  # Média de 5g de P por m²
+            potassio = 8 * area  # Média de 8g de K por m²
+    return sementes_mudas, agua, nitrogenio, fosforo, potassio
 
-        else:
-            print("Cultura inválida!")
-            return
-        print(f"\nInsumos necessários para {cultura.capitalize()} em {area} m²:")
-        if cultura == "milho":
-            print(f"Sementes: {converter_peso(sementes)}")
-        else:
-            print(f"Mudas: {converter_mudas(mudas)}")
-        print(f"Água: {converter_peso(agua)}")
-        print(f"Nitrogênio (N): {converter_peso(nitrogenio)}")
-        print(f"Fósforo (P): {converter_peso(fosforo)}")
-        print(f"Potássio (K): {converter_peso(potassio)}")
+
+
+
+
+######################### 2 - exibir_plantações 
+
+def exibir_plantacoes():
+    if not plantacoes:
+        print("Nenhuma plantação cadastrada.")
     else:
-        print("Índice inválido!")
+        print("\n ---> Plantações: ")
+        for i, plantacao in enumerate(plantacoes):
+            print(
+                f"Índice {i} - Nome: {plantacao['nome'].capitalize()} || Cultura: {plantacao['cultura'].capitalize()} || Área: {plantacao['area']} m²")
 
+
+
+######################### 3 - Atualizar dados de plantação 
+
+def atualizar_dados():
+    print("Digite o índice da plantação que deseja atualizar ")
+    exibir_plantacoes()
+    while True:
+        indice = int(input("--> "))
+        if 0 <= indice < len(plantacoes):
+            print("Qual dado será atualizado? ")
+            print(" 0 - Nome"
+                "\n 1 - Area"
+                "\n 2 - Cultura")
+            while True:
+                resposta = int(input("--> "))
+                if resposta > 2 or resposta < 0:
+                    print("! Opção inválida ! \n")
+                else:
+                    break
+            match resposta:
+                case 0:
+                    print("\n Novo nome ")
+                    plantacoes[indice]["nome"] = input("--> ")
+                    print("Nome atualizado com sucesso")
+                case 1:
+                    plantacoes[indice]["area"] = calcular_area()
+                    print("Área atualizada com sucesso")
+                case 2:
+                    while True:
+                        print("\n Nova cultura (laranja/milho) ")
+                        plantacoes[indice]["cultura"] = input("--> ")
+                        if plantacoes[indice]["cultura"] != "laranja" and plantacoes[indice]["cultura"] != "milho":
+                            print("! Cultura inválida !\n")
+                        else:
+                            plantacoes[indice]["sementes_mudas"], plantacoes[indice]["agua"], plantacoes[indice]["nitrogenio"], plantacoes[indice]["fosforo"], plantacoes[indice]["potassio"] = calcular_insumos(plantacoes[indice]["cultura"], plantacoes[indice]["area"])
+                            break
+                        print("Cultura atualizada com sucesso")
+            break
+        else:
+            print("! Opção inválida !\n")
+
+
+
+
+
+######################### 4 - Exibir insumos
+def exibir_insumos():
+    print("Digite o índice da plantação para calcular os insumos ")
+    exibir_plantacoes()
+    while True:
+        indice = int(input("--> "))
+        if 0 <= indice < len(plantacoes):
+            print(f"Insumos necessários para '{plantacoes[indice]['nome']}': ")
+            if plantacoes[indice]["cultura"] == "laranja":
+                print(f"Mudas:          {converter_mudas(plantacoes[indice]['sementes_mudas'])}")
+            else:
+                print(f"Sementes:       {converter_peso(plantacoes[indice]['sementes_mudas'])}")
+            print(f"Agua:           {converter_peso(plantacoes[indice]['agua'])}"
+                f"\nNitrogênio (N): {converter_peso(plantacoes[indice]['nitrogenio'])}"
+                f"\nFósforo    (P): {converter_peso(plantacoes[indice]['fosforo'])}"
+                f"\nPotássio   (K): {converter_peso(plantacoes[indice]['potassio'])}")
+            break
+        else:
+            print("! indice inválido ! \n")
+
+
+
+
+
+######################### menu 
 
 def main():
     while True:
-        print("\n==== Menu de Opções ====")
-        print("1 - Cadastrar plantação")
-        print("2 - Exibir plantações")
-        print("3 - Atualizar área de plantação")
-        print("4 - Calcular insumos")
-        print("5 - Sair")
-        opcao = input("Escolha uma opção: ")
+        sleep(1)
+        confirmação = input("\nPressione [ENTER] para continuar")
+        limpar_tela()
+        sleep(1)
+        print("\n====== Menu de Opções ======")
+        print("   1 - Cadastrar plantação")
+        print("   2 - Exibir plantações")
+        print("   3 - Atualizar dados de plantação")
+        print("   4 - Calcular insumos")
+        print("   5 - Apagar uma plantação")
+        print("   0 - Sair")
+        print("Escolha uma opção ")
+        opcao = input("--> ")
 
         if opcao == "1":
             cadastrar_plantacao()
         elif opcao == "2":
             exibir_plantacoes()
         elif opcao == "3":
-            atualizar_area()
+            atualizar_dados()
         elif opcao == "4":
-            calcular_insumos()
+            exibir_insumos()
         elif opcao == "5":
+            apagar_plantacao()
+        elif opcao == "0":
             print("Saindo do programa...")
             break
         else:
-            print("Opção inválida!")
+            print("! Opção inválida !\n")
 
 
-########## Plantações exemplo para o programa em R ##########
-plantacoes.append({'nome': 'Plantação laranja 1', 'cultura': 'laranja', 'area': 47505.06, 'sementes/mudas': 1583.502,
-                   'agua': 712575.8999999999, 'nitrogenio': 380040.48, 'fosforo': 190020.24, 'potassio': 285030.36})
-plantacoes.append({'nome': 'Plantação laranja 2', 'cultura': 'laranja', 'area': 652919.04, 'sementes/mudas': 21763.968,
-                   'agua': 9793785.600000001, 'nitrogenio': 5223352.32, 'fosforo': 2611676.16, 'potassio': 3917514.24})
-plantacoes.append({'nome': 'Plantação laranja 3', 'cultura': 'laranja', 'area': 1954715.94, 'sementes/mudas': 65157.198,
-                   'agua': 29320739.099999998, 'nitrogenio': 15637727.52, 'fosforo': 7818863.76,
-                   'potassio': 11728295.64})
-plantacoes.append(
-    {'nome': 'Plantação milho 1', 'cultura': 'milho', 'area': 15129.0, 'sementes/mudas': 34796.7, 'agua': 75645.0,
-     'nitrogenio': 151290.0, 'fosforo': 75645.0, 'potassio': 121032.0})
-plantacoes.append(
-    {'nome': 'Plantação milho 2', 'cultura': 'milho', 'area': 207936.0, 'sementes/mudas': 478252.8, 'agua': 1039680.0,
-     'nitrogenio': 2079360.0, 'fosforo': 1039680.0, 'potassio': 1663488.0})
-plantacoes.append(
-    {'nome': 'Plantação milho 3', 'cultura': 'milho', 'area': 622521.0, 'sementes/mudas': 1431798.2999999998,
-     'agua': 3112605.0, 'nitrogenio': 6225210.0, 'fosforo': 3112605.0, 'potassio': 4980168.0})
+
+
 
 main()
