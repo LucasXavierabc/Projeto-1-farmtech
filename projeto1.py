@@ -8,7 +8,7 @@ plantacoes = []
 ######################### Outras funções 
 
 def limpar_tela():
-    print(""*100)
+    print("\n"*100)
 
 def converter_peso(gramas):
     if gramas >= 1_000_000:
@@ -75,7 +75,7 @@ def calcular_insumos(cultura, area):
             nitrogenio = 10 * area  # Média de 10g de N por m²
             fosforo = 5 * area  # Média de 5g de P por m²
             potassio = 8 * area  # Média de 8g de K por m²
-    return sementes_mudas, agua, nitrogenio, fosforo, potassio
+    return sementes_mudas, int(agua), nitrogenio, fosforo, potassio
 
 
 
@@ -99,6 +99,7 @@ def exibir_plantacoes():
 def atualizar_dados():
     print("Digite o índice da plantação que deseja atualizar ")
     exibir_plantacoes()
+
     while True:
         indice = int(input("--> "))
         if 0 <= indice < len(plantacoes):
@@ -106,12 +107,14 @@ def atualizar_dados():
             print(" 0 - Nome"
                 "\n 1 - Area"
                 "\n 2 - Cultura")
+
             while True:
                 resposta = int(input("--> "))
                 if resposta > 2 or resposta < 0:
                     print("! Opção inválida ! \n")
                 else:
                     break
+
             match resposta:
                 case 0:
                     print("\n Novo nome ")
@@ -119,6 +122,7 @@ def atualizar_dados():
                     print("Nome atualizado com sucesso")
                 case 1:
                     plantacoes[indice]["area"] = calcular_area()
+                    plantacoes[indice]["sementes_mudas"], plantacoes[indice]["agua"], plantacoes[indice]["nitrogenio"], plantacoes[indice]["fosforo"], plantacoes[indice]["potassio"] = calcular_insumos(plantacoes[indice]["cultura"], plantacoes[indice]["area"])
                     print("Área atualizada com sucesso")
                 case 2:
                     while True:
@@ -131,6 +135,7 @@ def atualizar_dados():
                             break
                         print("Cultura atualizada com sucesso")
             break
+
         else:
             print("! Opção inválida !\n")
 
@@ -150,13 +155,29 @@ def exibir_insumos():
                 print(f"Mudas:          {converter_mudas(plantacoes[indice]['sementes_mudas'])}")
             else:
                 print(f"Sementes:       {converter_peso(plantacoes[indice]['sementes_mudas'])}")
-            print(f"Agua:           {converter_peso(plantacoes[indice]['agua'])}"
-                f"\nNitrogênio (N): {converter_peso(plantacoes[indice]['nitrogenio'])}"
-                f"\nFósforo    (P): {converter_peso(plantacoes[indice]['fosforo'])}"
+            print(f"Agua:           {plantacoes[indice]['agua']:,} L".replace(",", "."),
+                f"\nNitrogênio (N): {converter_peso(plantacoes[indice]['nitrogenio'])}",
+                f"\nFósforo    (P): {converter_peso(plantacoes[indice]['fosforo'])}",
                 f"\nPotássio   (K): {converter_peso(plantacoes[indice]['potassio'])}")
             break
         else:
             print("! indice inválido ! \n")
+
+
+
+
+######################### apagar uma plantação
+def apagar_plantacao():
+    print("Digite o índice da plantação a ser apagada ")
+    exibir_plantacoes()
+    while True:
+        indice = int(input("--> "))
+        if 0 <= indice < len(plantacoes):
+            del(plantacoes[indice])
+            print("Plantação apagada com sucesso")
+            break
+        else:
+            print("! índice inválido ! \n")
 
 
 
@@ -178,6 +199,7 @@ def main():
         print("   5 - Apagar uma plantação")
         print("   0 - Sair")
         print("Escolha uma opção ")
+
         opcao = input("--> ")
 
         if opcao == "1":
@@ -195,6 +217,21 @@ def main():
             break
         else:
             print("! Opção inválida !\n")
+
+
+
+
+
+plantacoes.append({'nome': 'Plantação exemplo 1', 'cultura': 'laranja', 'area': 10_000.0, 'sementes_mudas': 333.333, 'agua': 150_000, 'nitrogenio': 80_000.0, 'fosforo': 40_000.0, 'potassio': 60_000.0})
+plantacoes.append({'nome': 'Plantação exemplo 2', 'cultura': 'laranja', 'area': 11_000.0, 'sementes_mudas': 366.667, 'agua': 165_000, 'nitrogenio': 88_000.0, 'fosforo': 44_000.0, 'potassio': 66_000.0})
+plantacoes.append({'nome': 'Plantação exemplo 3', 'cultura': 'laranja', 'area': 12_100.0, 'sementes_mudas': 403.333, 'agua': 181_500, 'nitrogenio': 96_800.0, 'fosforo': 48_400.0, 'potassio': 72_600.0})
+plantacoes.append({'nome': 'Plantação exemplo 4', 'cultura': 'laranja', 'area': 12_000.0, 'sementes_mudas': 400.0, 'agua': 180_000, 'nitrogenio': 96_000.0, 'fosforo': 48_000.0, 'potassio': 72_000.0})
+plantacoes.append({'nome': 'Plantação exemplo 5', 'cultura': 'laranja', 'area': 14_400.0, 'sementes_mudas': 480.0, 'agua': 216_000, 'nitrogenio': 115_200.0, 'fosforo': 57_600.0, 'potassio': 86_400.0})
+plantacoes.append({'nome': 'Plantação exemplo 6', 'cultura': 'milho', 'area': 10_000.0, 'sementes_mudas': 23_000.0, 'agua': 50_000, 'nitrogenio': 100_000.0, 'fosforo': 50_000.0, 'potassio': 80_000.0})
+plantacoes.append({'nome': 'Plantação exemplo 7', 'cultura': 'milho', 'area': 11_000.0, 'sementes_mudas': 25_300.0, 'agua': 55_000, 'nitrogenio': 110_000.0, 'fosforo': 55_000.0, 'potassio': 88_000.0})
+plantacoes.append({'nome': 'Plantação exemplo 8', 'cultura': 'milho', 'area': 12_100.0, 'sementes_mudas': 27_830.0, 'agua': 60_500, 'nitrogenio': 121_000.0, 'fosforo': 60_500.0, 'potassio': 96_800.0})
+plantacoes.append({'nome': 'Plantação exemplo 9', 'cultura': 'milho', 'area': 12_000.0, 'sementes_mudas': 27_600.0, 'agua': 60_000, 'nitrogenio': 120_000.0, 'fosforo': 60_000.0, 'potassio': 96_000.0})
+plantacoes.append({'nome': 'Plantação exemplo 10', 'cultura': 'milho', 'area': 14_400.0, 'sementes_mudas': 33_120.0, 'agua': 72_000, 'nitrogenio': 144_000.0, 'fosforo': 72_000.0, 'potassio': 115_200.0})
 
 
 
