@@ -182,8 +182,7 @@ def apagar_plantacao():
 
 
 
-
-######################### menu 
+######################### menu
 
 def main():
     while True:
