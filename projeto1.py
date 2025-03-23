@@ -225,12 +225,12 @@ def main():
 plantacoes.append({'nome': 'Plantação exemplo 1', 'cultura': 'laranja', 'area': 10_000.0, 'sementes_mudas': 333.333, 'agua': 150_000, 'nitrogenio': 80_000.0, 'fosforo': 40_000.0, 'potassio': 60_000.0})
 plantacoes.append({'nome': 'Plantação exemplo 2', 'cultura': 'laranja', 'area': 11_000.0, 'sementes_mudas': 366.667, 'agua': 165_000, 'nitrogenio': 88_000.0, 'fosforo': 44_000.0, 'potassio': 66_000.0})
 plantacoes.append({'nome': 'Plantação exemplo 3', 'cultura': 'laranja', 'area': 12_100.0, 'sementes_mudas': 403.333, 'agua': 181_500, 'nitrogenio': 96_800.0, 'fosforo': 48_400.0, 'potassio': 72_600.0})
-plantacoes.append({'nome': 'Plantação exemplo 4', 'cultura': 'laranja', 'area': 12_000.0, 'sementes_mudas': 400.0, 'agua': 180_000, 'nitrogenio': 96_000.0, 'fosforo': 48_000.0, 'potassio': 72_000.0})
+plantacoes.append({'nome': 'Plantação exemplo 4', 'cultura': 'laranja', 'area': 10_000.0, 'sementes_mudas': 333.333, 'agua': 150_000, 'nitrogenio': 80_000.0, 'fosforo': 40_000.0, 'potassio': 60_000.0})
 plantacoes.append({'nome': 'Plantação exemplo 5', 'cultura': 'laranja', 'area': 14_400.0, 'sementes_mudas': 480.0, 'agua': 216_000, 'nitrogenio': 115_200.0, 'fosforo': 57_600.0, 'potassio': 86_400.0})
 plantacoes.append({'nome': 'Plantação exemplo 6', 'cultura': 'milho', 'area': 10_000.0, 'sementes_mudas': 23_000.0, 'agua': 50_000, 'nitrogenio': 100_000.0, 'fosforo': 50_000.0, 'potassio': 80_000.0})
 plantacoes.append({'nome': 'Plantação exemplo 7', 'cultura': 'milho', 'area': 11_000.0, 'sementes_mudas': 25_300.0, 'agua': 55_000, 'nitrogenio': 110_000.0, 'fosforo': 55_000.0, 'potassio': 88_000.0})
 plantacoes.append({'nome': 'Plantação exemplo 8', 'cultura': 'milho', 'area': 12_100.0, 'sementes_mudas': 27_830.0, 'agua': 60_500, 'nitrogenio': 121_000.0, 'fosforo': 60_500.0, 'potassio': 96_800.0})
-plantacoes.append({'nome': 'Plantação exemplo 9', 'cultura': 'milho', 'area': 12_000.0, 'sementes_mudas': 27_600.0, 'agua': 60_000, 'nitrogenio': 120_000.0, 'fosforo': 60_000.0, 'potassio': 96_000.0})
+plantacoes.append({'nome': 'Plantação exemplo 9', 'cultura': 'milho', 'area': 10_000.0, 'sementes_mudas': 23_000.0, 'agua': 50_000, 'nitrogenio': 100_000.0, 'fosforo': 50_000.0, 'potassio': 80_000.0})
 plantacoes.append({'nome': 'Plantação exemplo 10', 'cultura': 'milho', 'area': 14_400.0, 'sementes_mudas': 33_120.0, 'agua': 72_000, 'nitrogenio': 144_000.0, 'fosforo': 72_000.0, 'potassio': 115_200.0})
 
 
