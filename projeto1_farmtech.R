@@ -127,35 +127,31 @@ if (status_code(resposta) == 200) {
 } else {
   cat("Erro ao acessar a API. Verifique a chave de API e a conexão.")
 }
-  temp_milho <- (temperatura >= 20 && temperatura <= 30)
-  umid_milho <- (umidade >= 60 && umidade <= 80)
-  cond_milho <- (condicao != "Rain" && condicao != "Heavy rain")
-  
-  
-  
-  ################## Imprimir condições meteorológicas na tela
-  
-  cat("Informações meteorológicas para", cidade, ":\n")
-  cat("Temperatura:", temperatura, "°C\n")
-  cat("Umidade:", umidade, "%\n")
-  cat("Condição do tempo:", condicao, "\n")
-  
-  
-  
-  ################## Verificar se condições estão favoráveis para o cultivo de laranja/milho
-  
-  if (temp_laranja && umid_laranja && cond_laranja) {
-    cat("As condições climáticas estão favoráveis para o cultivo de laranja.\n")
-  } else {
-    cat("As condições climáticas não estão favoráveis para o cultivo de laranja.\n")
-  }
-  
-  if (temp_milho && umid_milho && cond_milho) {
-    cat("As condições climáticas estã6 favoráveis para o cultivo de milho.\n")
-  } else {
-    cat("As condições climáticas não estão favoráveis para o cultivo de milho.\n")
-  }
-  
+temp_milho <- (temperatura >= 20 && temperatura <= 30)
+umid_milho <- (umidade >= 60 && umidade <= 80)
+cond_milho <- (condicao != "Rain" && condicao != "Heavy rain")
+
+
+
+################## Imprimir condições meteorológicas na tela
+
+cat("Informações meteorológicas para", cidade, ":\n")
+cat("Temperatura:", temperatura, "°C\n")
+cat("Umidade:", umidade, "%\n")
+cat("Condição do tempo:", condicao, "\n")
+
+
+
+################## Verificar se condições estão favoráveis para o cultivo de laranja/milho
+
+if (temp_laranja && umid_laranja && cond_laranja) {
+  cat("As condições climáticas estão favoráveis para o cultivo de laranja.\n")
 } else {
-  cat("Erro ao acessar a API. Verifique a chave de API e a conexão.")
+  cat("As condições climáticas não estão favoráveis para o cultivo de laranja.\n")
+}
+
+if (temp_milho && umid_milho && cond_milho) {
+  cat("As condições climáticas estã6 favoráveis para o cultivo de milho.\n")
+} else {
+  cat("As condições climáticas não estão favoráveis para o cultivo de milho.\n")
 }

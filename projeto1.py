@@ -193,9 +193,9 @@ def main():
         print("\n====== Menu de Opções ======")
         print("   1 - Cadastrar plantação")
         print("   2 - Exibir plantações")
-        print("   3 - Atualizar dados de plantação")
-        print("   4 - Calcular insumos")
-        print("   5 - Apagar uma plantação")
+        print("   3 - Exibir insumos")
+        print("   4 - Atualizar dados")
+        print("   5 - Apagar dados")
         print("   0 - Sair")
         print("Escolha uma opção ")
 
@@ -206,9 +206,9 @@ def main():
         elif opcao == "2":
             exibir_plantacoes()
         elif opcao == "3":
-            atualizar_dados()
-        elif opcao == "4":
             exibir_insumos()
+        elif opcao == "4":
+            atualizar_dados()
         elif opcao == "5":
             apagar_plantacao()
         elif opcao == "0":
