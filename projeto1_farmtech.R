@@ -62,12 +62,22 @@ estatisticas <- list(
 
 ################### imprimir informações na tela
 
+options(scipen = 999)  # Desativa notação científica
 for (nome in names(estatisticas)) {
   cat("\n--- Estatísticas para", nome, "---\n")
   cat("Média:", format(estatisticas[[nome]]$media, big.mark = ".", decimal.mark = ","), "\n")
   cat("Mediana:", format(estatisticas[[nome]]$mediana, big.mark = ".", decimal.mark = ","), "\n")
   cat("Moda:", paste(format(estatisticas[[nome]]$moda, big.mark = ".", decimal.mark = ","), collapse=", "), "\n")
 }
+
+
+
+
+
+
+
+
+
 
 
 
@@ -86,7 +96,7 @@ resposta <- GET(url)
 
 if (status_code(resposta) == 200) {
   dados_meteorologicos <- fromJSON(content(resposta, "text"))
-  
+
   temperatura <- dados_meteorologicos$current$temp_c
   umidade <- dados_meteorologicos$current$humidity
   condicao <- dados_meteorologicos$current$condition$text
@@ -151,7 +161,7 @@ if (temp_laranja && umid_laranja && cond_laranja) {
 }
 
 if (temp_milho && umid_milho && cond_milho) {
-  cat("As condições climáticas estã6 favoráveis para o cultivo de milho.\n")
+  cat("As condições climáticas estão favoráveis para o cultivo de milho.\n")
 } else {
   cat("As condições climáticas não estão favoráveis para o cultivo de milho.\n")
 }
